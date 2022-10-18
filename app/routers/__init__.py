@@ -7,7 +7,6 @@ path_parent = Path('./app/routers')
 
 for module in listdir(path_parent):
     if 'router' in module:
-        #print(module[inicio:fin:pasos])
         import_module(
             f'app.routers.{module[:-3]}'
         )
