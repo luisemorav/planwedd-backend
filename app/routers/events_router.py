@@ -1,9 +1,11 @@
 from app import api
-from flask import request
+from flask import request, jsonify
 from flask_restx import Resource
 from app.schemas.events_schema import EventsRequestSchema
 from app.controllers.events_controller import EventsController
 from flask_jwt_extended import jwt_required
+import cloudinary
+import cloudinary.uploader
 
 event_ns = api.namespace(
     name='Eventos',
@@ -16,7 +18,7 @@ request_schema = EventsRequestSchema(event_ns)
 @event_ns.route('')
 @event_ns.doc(security='Bearer')
 class Events(Resource):
-    @jwt_required()
+    # jwt_required()
     @event_ns.expect(request_schema.all())
     def get(self):
         ''' Listar todos los eventos '''
@@ -31,11 +33,30 @@ class Events(Resource):
         controller = EventsController()
         return controller.create(request.json)
 
+@event_ns.route('/uploadimage')
+@event_ns.doc(security='Bearer')
+class UploadImage(Resource):
+    # @jwt_required()
+    def post(self):
+        try:
+            cloudinary.config( 
+                cloud_name = "de3i8hs61", 
+                api_key = "697852552381113", 
+                api_secret = "SGthDnSL6NpdHh6TloTBl-crRPk" 
+            )
+            ret = cloudinary.uploader.upload(request.files['imagen'])
+            response = jsonify(list(ret))
+            return response, 201
+        except Exception as err:
+            return {
+                'message': str(err)
+            }, 500
+
 
 @event_ns.route('/<int:id>')
 @event_ns.doc(security='Bearer')
 class EventById(Resource):
-    @jwt_required()
+    # @jwt_required()
     def get(self, id):
         ''' Obtener un evento por el ID '''
         controller = EventsController()

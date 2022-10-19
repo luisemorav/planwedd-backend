@@ -40,6 +40,6 @@ class EventsResponseSchema(SQLAlchemyAutoSchema):
         model = EventModel
         ordered = True
 
-    usuario = Nested('UsersResponseSchema', exclude=['eventos', 'rol'], many=False)
+    # usuario = Nested('UsersResponseSchema', exclude=['eventos', 'rol'], many=False)
     regalos = Nested('GiftsResponseSchema', exclude=['evento'], many=True)
     dedicatorias = Nested('GiftsResponseSchema', exclude=['evento'], many=True)
