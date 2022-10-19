@@ -29,8 +29,9 @@ class Users(Resource):
     @user_ns.expect(request_schema.create(), validate=True)
     def post(self):
         ''' Creación de Usuarios '''
+        form = request_schema.create().parse_args()
         controller = UsersController()
-        return controller.create(request.json)
+        return controller.create(form)
 
 
 @user_ns.route('/<int:id>')

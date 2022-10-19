@@ -3,6 +3,7 @@ from marshmallow.fields import Nested
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from app.models.users_model import UserModel
 from flask_restx.reqparse import RequestParser
+from werkzeug.datastructures import FileStorage
 
 
 class UsersRequestSchema:
@@ -16,16 +17,28 @@ class UsersRequestSchema:
         return parser
 
     def create(self):
-        return self.namespace.model('User Create', {
-            'nombres': fields.String(required=True, min_length=2, max_length=120),
-            'apellidos': fields.String(required=True, min_length=2, max_length=160),
-            'dni': fields.String(required=True, max_length=8),
-            'username': fields.String(required=True, min_length=2, max_length=80),
-            'password': fields.String(required=True, min_length=5, max_length=120),
-            'img': fields.String(required=False, max_length=160),
-            'correo': fields.String(required=True, min_length=3, max_length=120),
-            'rol_id': fields.Integer(readonly=True, default=2)
-        })
+        parser = RequestParser()
+        parser.add_argument('nombres', type=str, required=True, location='form')
+        parser.add_argument('apellidos', type=str, required=True, location='form')
+        parser.add_argument('dni', type=str, required=True, location='form')
+        parser.add_argument('username', type=str, required=True, location='form')
+        parser.add_argument('password', type=str, required=True, location='form')
+        parser.add_argument('img', type=FileStorage, required=False, location='files')
+        parser.add_argument('correo', type=str, required=True, location='form')
+        parser.add_argument('rol_id', type=int, required=True, location='form')
+
+
+        return parser
+        # return self.namespace.model('User Create', {
+        #     'nombres': fields.String(required=True, min_length=2, max_length=120),
+        #     'apellidos': fields.String(required=True, min_length=2, max_length=160),
+        #     'dni': fields.String(required=True, max_length=8),
+        #     'username': fields.String(required=True, min_length=2, max_length=80),
+        #     'password': fields.String(required=True, min_length=5, max_length=120),
+        #     'img': fields.String(required=False, max_length=160),
+        #     'correo': fields.String(required=True, min_length=3, max_length=120),
+        #     'rol_id': fields.Integer(readonly=True, default=2)
+        # })
 
     def update(self):
         return self.namespace.model('User Update', {

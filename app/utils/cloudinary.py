@@ -1,14 +1,12 @@
 from cloudinary import config, uploader
+from os import getenv
 
 class Cloudinary:
     def __init__(self):
-        self.cloud_name = "de3i8hs61"
-        self.api_key = "697852552381113"
-        self.api_secret = "SGthDnSL6NpdHh6TloTBl-crRPk"
         config(
-            cloud_name=self.cloud_name,
-            api_key=self.api_key,
-            api_secret=self.api_secret
+            cloud_name=getenv('CLOUD_NAME'),
+            api_key=getenv('API_KEY'),
+            api_secret=getenv('API_SECRET')
         )
 
     def uploadImage(self, file):

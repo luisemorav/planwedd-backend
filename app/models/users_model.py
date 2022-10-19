@@ -1,5 +1,5 @@
 from app.models.base import BaseModel
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from bcrypt import hashpw, gensalt, checkpw
 
@@ -13,7 +13,7 @@ class UserModel(BaseModel):
     dni = Column(String(8), unique=True)
     username = Column(String(80), unique=True)
     password = Column(String(120), nullable=False)
-    img = Column(Text, nullable=True)
+    img = Column(String(255), nullable=True)
     correo = Column(String(120), unique=True)
     status = Column(Boolean, default=True)
 

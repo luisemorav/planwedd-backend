@@ -1,6 +1,7 @@
 from app import db
 from app.models.users_model import UserModel
 from app.schemas.users_schema import UsersResponseSchema
+from app.utils.cloudinary import Cloudinary
 
 
 class UsersController:
@@ -53,6 +54,10 @@ class UsersController:
 
     def create(self, data):
         try:
+            cloudinary = Cloudinary()
+            image_url = cloudinary.uploadImage(data['img'])
+            
+            data['img'] = image_url
             data['rol_id'] = 2
             new_record = self.model.create(**data)
             new_record.hashPassword()

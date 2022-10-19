@@ -7,10 +7,10 @@ class GiftModel(BaseModel):
     __tablename__ = 'regalos'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    nombre = Column(String(100))
-    descripcion = Column(String(300), default="")
-    img_regalo = Column(Text, nullable=True)
-    precio = Column(String(12), default="0")
+    nombre = Column(String(200))
+    descripcion = Column(Text, default="")
+    img_regalo = Column(String, nullable=True)
+    precio = Column(String(10))
     status = Column(Boolean, default=True)
 
     evento_id = Column(Integer, ForeignKey('eventos.id'))

@@ -28,8 +28,9 @@ class Gifts(Resource):
     @gift_ns.expect(request_schema.create(), validate=True)
     def post(self):
         ''' Creación de Regalos '''
+        form = request_schema.create().parse_args()
         controller = GiftsController()
-        return controller.create(request.json)
+        return controller.create(form)
 
 
 @gift_ns.route('/<int:id>')

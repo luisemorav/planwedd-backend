@@ -2,6 +2,7 @@
 from app import db
 from app.models.gifts_model import GiftModel
 from app.schemas.gifts_schema import GiftsResponseSchema
+from app.utils.cloudinary import Cloudinary
 
 class GiftsController:
     def __init__(self):
@@ -63,6 +64,10 @@ class GiftsController:
 
     def create(self, data):
         try:
+            cloudinary = Cloudinary()
+            image_url = cloudinary.uploadImage(data['img_regalo'])
+
+            data['img_regalo'] = image_url
             new_record = self.model.create(**data)
             db.session.add(new_record)
             db.session.commit()
@@ -76,9 +81,8 @@ class GiftsController:
         except Exception as e:
             db.session.rollback()
             return {
-                'message': 'Ocurrio un error',
-                'error': str(e)
-            }
+                'message': str(e)
+            }, 500
 
     def update(self, id, data):
         try:

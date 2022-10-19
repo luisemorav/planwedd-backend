@@ -7,7 +7,6 @@ path_parent = Path('./app/models')
 
 for module in listdir(path_parent):
     if 'model' in module:
-        # print(module[inicio:fin:pasos])
         import_module(
             f'app.models.{module[:-3]}'
         )
