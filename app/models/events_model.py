@@ -1,5 +1,5 @@
 from app.models.base import BaseModel
-from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Text
 from sqlalchemy.orm import relationship
 
 
@@ -8,9 +8,9 @@ class EventModel(BaseModel):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     nombre_evento = Column(String(200))
-    fecha_evento = Column(Date, default="")
-    texto_portada = Column(String(300), default="")
-    img_portada = Column(Text)
+    fecha_evento = Column(String(10), default="dd/mm/aaaa")
+    texto_portada = Column(Text, default="")
+    img_portada = Column(String(255))
     configuraciones = Column(String(200))
     status = Column(Boolean, default=True)
 

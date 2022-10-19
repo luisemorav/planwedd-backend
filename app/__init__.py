@@ -31,7 +31,7 @@ api = Api(
 )
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app=app, db=db, compare_type=True)
 
 jwt = JWTManager(app)
 mail = Mail(app)

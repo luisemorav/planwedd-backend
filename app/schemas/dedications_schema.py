@@ -1,5 +1,5 @@
 from flask_restx import fields
-from marshmallow.fields import Nested
+# from marshmallow.fields import Nested
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from app.models.dedications_model import DedicationModel
 from flask_restx.reqparse import RequestParser
@@ -32,5 +32,6 @@ class DedicationsResponseSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = DedicationModel
         ordered = True
+        include_fk = True
 
-    evento = Nested('EventsResponseSchema', exclude=['dedicatorias', 'regalos', 'usuario'], many=False)
+    # evento = Nested('EventsResponseSchema', exclude=['dedicatorias', 'regalos', 'usuario'], many=False)

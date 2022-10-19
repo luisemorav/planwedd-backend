@@ -1,3 +1,4 @@
+
 from app import db
 from app.models.gifts_model import GiftModel
 from app.schemas.gifts_schema import GiftsResponseSchema
@@ -37,6 +38,22 @@ class GiftsController:
                 }, 200
             return {
                 'message': 'No se encontro el regalo requerido'
+            }, 404
+        except Exception as e:
+            return {
+                'message': 'Ocurrio un error',
+                'error': str(e)
+            }, 500
+    
+    def getByEventId(self, id):
+        try:
+            if record := self.model.where(evento_id=id).all():
+                response = self.schema(many=True)
+                return {
+                    'data': response.dump(record)
+                }, 200
+            return {
+                'message': 'No se encontraron regalos con en el evento requerido'
             }, 404
         except Exception as e:
             return {

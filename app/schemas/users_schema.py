@@ -46,5 +46,5 @@ class UsersResponseSchema(SQLAlchemyAutoSchema):
         exclude = ['password']
 
     rol = Nested('RolesResponseSchema', exclude=['usuarios'], many=False)
-    eventos = Nested('EventsResponseSchema', exclude=['usuario', 'regalos', 'dedicatorias'], many=True)
+    # eventos = Nested('EventsResponseSchema', exclude=['usuario', 'regalos', 'dedicatorias'], many=True)
     cuentas = Nested('BaccountsResponseSchema', exclude=['usuario'], many=True)

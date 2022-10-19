@@ -35,11 +35,15 @@ class Gifts(Resource):
 @gift_ns.route('/<int:id>')
 @gift_ns.doc(security='Bearer')
 class GiftById(Resource):
+
+    
+
     @jwt_required()
     def get(self, id):
         ''' Obtener un regalo por el ID '''
         controller = GiftsController()
         return controller.getById(id)
+
 
     @jwt_required()
     @gift_ns.expect(request_schema.update(), validate=True)
@@ -53,5 +57,12 @@ class GiftById(Resource):
         ''' Deshabilitar un regalo por el ID '''
         controller = GiftsController()
         return controller.delete(id)
+
+@gift_ns.route('/event<int:id>')
+class GiftsByEventId(Resource):
+    def get(self, id):
+        ''' Obtener regalos por el ID del evento'''
+        controller = GiftsController()
+        return controller.getByEventId(id)
 
 api.add_namespace(gift_ns)

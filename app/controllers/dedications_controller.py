@@ -44,6 +44,22 @@ class DedicationsController:
                 'error': str(e)
             }, 500
 
+    def getByEventId(self, id):
+        try:
+            if record := self.model.where(evento_id=id).all():
+                response = self.schema(many=True)
+                return {
+                    'data': response.dump(record)
+                }, 200
+            return {
+                'message': 'No se encontraron dedicatorias con en el evento requerido'
+            }, 404
+        except Exception as e:
+            return {
+                'message': 'Ocurrio un error',
+                'error': str(e)
+            }, 500
+
     def create(self, data):
         try:
             new_record = self.model.create(**data)

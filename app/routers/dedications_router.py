@@ -54,4 +54,11 @@ class DedicationById(Resource):
         controller = DedicationsController()
         return controller.delete(id)
 
+@dedication_ns.route('/event<int:id>')
+class DedicationsByEventId(Resource):
+    def get(self, id):
+        ''' Obtener dedicatorias por el ID del evento'''
+        controller = DedicationsController()
+        return controller.getByEventId(id)
+
 api.add_namespace(dedication_ns)

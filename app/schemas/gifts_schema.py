@@ -1,3 +1,4 @@
+from xml.etree.ElementInclude import include
 from flask_restx import fields
 from marshmallow.fields import Nested
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
@@ -37,5 +38,6 @@ class GiftsResponseSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = GiftModel
         ordered = True
+        include_fk = True
 
-    evento = Nested('EventsResponseSchema', exclude=['regalos', 'usuario', 'dedicatorias'], many=False)
+    # evento = Nested('EventsResponseSchema', exclude=['regalos', 'dedicatorias'], many=False)

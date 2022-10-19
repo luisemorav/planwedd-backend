@@ -4,8 +4,7 @@ from flask_restx import Resource
 from app.schemas.events_schema import EventsRequestSchema
 from app.controllers.events_controller import EventsController
 from flask_jwt_extended import jwt_required
-import cloudinary
-import cloudinary.uploader
+from app.utils.cloudinary import Cloudinary
 
 event_ns = api.namespace(
     name='Eventos',
@@ -30,33 +29,31 @@ class Events(Resource):
     @event_ns.expect(request_schema.create(), validate=True)
     def post(self):
         ''' Creación de Eventos '''
+        form = request_schema.create().parse_args()
         controller = EventsController()
-        return controller.create(request.json)
+        return controller.create(form)
 
-@event_ns.route('/uploadimage')
-@event_ns.doc(security='Bearer')
-class UploadImage(Resource):
-    # @jwt_required()
-    def post(self):
-        try:
-            cloudinary.config( 
-                cloud_name = "de3i8hs61", 
-                api_key = "697852552381113", 
-                api_secret = "SGthDnSL6NpdHh6TloTBl-crRPk" 
-            )
-            ret = cloudinary.uploader.upload(request.files['imagen'])
-            response = jsonify(list(ret))
-            return response, 201
-        except Exception as err:
-            return {
-                'message': str(err)
-            }, 500
+# @event_ns.route('/uploadimage')
+# @event_ns.doc(security='Bearer')
+# class UploadImage(Resource):
+#     # @jwt_required()
+#     def post(self):
+#         try:
+#             cloudinary = Cloudinary()
+#             response = cloudinary.upload(request.files['imagen'])
+#             return jsonify({
+#                 'url': response
+#             }), 200
+#         except Exception as err:
+#             return {
+#                 'message': str(err)
+#             }, 500
 
 
 @event_ns.route('/<int:id>')
 @event_ns.doc(security='Bearer')
 class EventById(Resource):
-    # @jwt_required()
+    @jwt_required()
     def get(self, id):
         ''' Obtener un evento por el ID '''
         controller = EventsController()
@@ -74,5 +71,12 @@ class EventById(Resource):
         ''' Deshabilitar un evento por el ID '''
         controller = EventsController()
         return controller.delete(id)
+
+@event_ns.route('<int:id>')
+class EventByUserId(Resource):
+    def get(self, id):
+        ''' Obtener un evento por el UserID '''
+        controller = EventsController()
+        return controller.getByUserId(id)
 
 api.add_namespace(event_ns)
