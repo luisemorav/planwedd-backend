@@ -56,5 +56,14 @@ class UserById(Resource):
         controller = UsersController()
         return controller.delete(id)
 
+@user_ns.route('/me')
+@user_ns.doc(security='Bearer')
+class GetMe(Resource):
+    @jwt_required()
+    def get(self):
+        ''' Obtener un usuario por el Token '''
+        controller = UsersController()
+        return controller.getMe()
+
 
 api.add_namespace(user_ns)

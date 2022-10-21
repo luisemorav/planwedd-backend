@@ -22,7 +22,7 @@ class EventsRequestSchema:
         parser.add_argument('fecha_evento', type=str, required=False, location='form')
         parser.add_argument('texto_portada', type=str, required=False, location='form')
         parser.add_argument('img_portada', type=FileStorage, required=False, location='files')
-        parser.add_argument('configuraciones', type=str, required=True, location='form')
+        parser.add_argument('configuraciones', type=str, required=False, location='form')
 
         return parser
         # return self.namespace.model('Event Create', {

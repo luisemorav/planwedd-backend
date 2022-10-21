@@ -20,7 +20,7 @@ class GiftsRequestSchema:
         parser.add_argument('nombre', type=str, required=True, location='form')
         parser.add_argument('descripcion', type=str, required=False, location='form')
         parser.add_argument('img_regalo', type=FileStorage, required=False, location='files')
-        parser.add_argument('precio', type=str, required=False, location='form')
+        parser.add_argument('precio', type=str, required=True, location='form')
         parser.add_argument('evento_id', type=int, required=True, location='form')
 
         return parser

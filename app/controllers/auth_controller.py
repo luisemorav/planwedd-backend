@@ -26,7 +26,7 @@ class AuthController:
                     )
                     return {
                         'access_token': access_token,
-                        'refresh_token': refresh_token
+                        'refresh_token': refresh_token,
                     }, 200
                 else:
                     raise Exception('La contraseña ingresada es incorrecta')

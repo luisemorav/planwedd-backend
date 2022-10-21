@@ -2,6 +2,7 @@ from app import db
 from app.models.users_model import UserModel
 from app.schemas.users_schema import UsersResponseSchema
 from app.utils.cloudinary import Cloudinary
+from flask_jwt_extended import current_user
 
 
 class UsersController:
@@ -45,6 +46,23 @@ class UsersController:
                 }, 200
             return {
                 'message': 'No se encontro el usuario mencionado'
+            }, 404
+        except Exception as e:
+            return {
+                'message': 'Ocurrio un error',
+                'error': str(e)
+            }, 500
+
+    def getMe(self):
+        id = current_user['id']
+        try:
+            if record := self.model.where(id=id).first():
+                response = self.schema(many=False)
+                return {
+                    'data': response.dump(record)
+                }, 200
+            return {
+                'message': 'No se encontro el usuario'
             }, 404
         except Exception as e:
             return {
