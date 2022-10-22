@@ -39,9 +39,8 @@ class GiftsSoft(Resource):
     @gift_ns.expect(request_schema.createsoft(), validate=True)
     def post(self):
         ''' Creación de Regalos predeterminados '''
-        form = request_schema.createsoft().parse_args()
         controller = GiftsController()
-        return controller.createsoft(form)
+        return controller.createsoft(request.json)
 
 
 @gift_ns.route('/<int:id>')

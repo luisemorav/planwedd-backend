@@ -86,7 +86,7 @@ class GiftsController:
 
     def createsoft(self, data):
         try:
-            new_record = self.model.createsoft(**data)
+            new_record = self.model.create(**data)
             db.session.add(new_record)
             db.session.commit()
 
