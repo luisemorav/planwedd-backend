@@ -23,14 +23,17 @@ class GiftsRequestSchema:
         parser.add_argument('precio', type=str, required=True, location='form')
         parser.add_argument('evento_id', type=int, required=True, location='form')
 
-        return parser
-        # return self.namespace.model('Gift Create', {
-        #     'nombre': fields.String(required=True, min_length=2, max_length=100),
-        #     'descripcion': fields.String(required=False, max_length=300),
-        #     'img_regalo': fields.String(required=False, max_length=100),
-        #     'precio': fields.String(required=False, max_length=12),
-        #     'evento_id': fields.Integer(required=True)
-        # })
+        return parser 
+        
+
+    def createsoft(self):
+        return self.namespace.model('Gift Create', {
+            'nombre': fields.String(required=True),
+            'descripcion': fields.String(required=False),
+            'img_regalo': fields.String(required=False),
+            'precio': fields.String(required=False),
+            'evento_id': fields.Integer(required=True)
+        })
 
     def update(self):
         return self.namespace.model('Gift Update', {

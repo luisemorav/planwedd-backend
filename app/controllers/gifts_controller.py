@@ -84,6 +84,24 @@ class GiftsController:
                 'message': str(e)
             }, 500
 
+    def createsoft(self, data):
+        try:
+            new_record = self.model.createsoft(**data)
+            db.session.add(new_record)
+            db.session.commit()
+
+            response = self.schema(many=False)
+
+            return {
+                'message': 'El regalo se creo con exito',
+                'data': response.dump(new_record)
+            }
+        except Exception as e:
+            db.session.rollback()
+            return {
+                'message': str(e)
+            }, 500
+
     def update(self, id, data):
         try:
             if record := self.model.where(id=id).first():

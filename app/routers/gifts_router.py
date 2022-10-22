@@ -32,6 +32,17 @@ class Gifts(Resource):
         controller = GiftsController()
         return controller.create(form)
 
+@gift_ns.route('/soft')
+@gift_ns.doc(security='Bearer')
+class GiftsSoft(Resource):
+    @jwt_required()
+    @gift_ns.expect(request_schema.createsoft(), validate=True)
+    def post(self):
+        ''' Creación de Regalos predeterminados '''
+        form = request_schema.createsoft().parse_args()
+        controller = GiftsController()
+        return controller.createsoft(form)
+
 
 @gift_ns.route('/<int:id>')
 @gift_ns.doc(security='Bearer')
