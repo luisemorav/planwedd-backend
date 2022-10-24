@@ -13,7 +13,7 @@ class UserModel(BaseModel):
     dni = Column(String(8), unique=True)
     username = Column(String(80), unique=True)
     password = Column(String(120), nullable=False)
-    img = Column(String(255), nullable=True)
+    # img = Column(String(255), nullable=True)
     correo = Column(String(120), unique=True)
     status = Column(Boolean, default=True)
 
