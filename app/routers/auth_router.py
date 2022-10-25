@@ -33,9 +33,9 @@ class SignUp(Resource):
     @auth_ns.expect(user_schema.create(), validate=True)
     def post(self):
         ''' Creación de Usuarios '''
-        form = user_schema.create().parse_args()
+        # form = user_schema.create().parse_args()
         controller = UsersController()
-        return controller.create(form)
+        return controller.create(request.json)
 
 
 @auth_ns.route('/reset_password')

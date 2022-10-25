@@ -72,10 +72,11 @@ class UsersController:
 
     def create(self, data):
         try:
-            # cloudinary = Cloudinary()
-            # image_url = cloudinary.uploadImage(data['img'])
-            
-            # data['img'] = image_url
+            if new_record := self.model.where(username=data['username']).first():
+                return {
+                    'message': 'El usuario solicitado ya existe'
+                }, 409
+
             data['rol_id'] = 2
             new_record = self.model.create(**data)
             new_record.hashPassword()
@@ -87,13 +88,14 @@ class UsersController:
             return {
                 'message': 'El usuario se creo con exito',
                 'data': response.dump(new_record)
-            }
+            }, 201
+
         except Exception as e:
             db.session.rollback()
             return {
                 'message': 'Ocurrio un error',
                 'error': str(e)
-            }
+            }, 500
 
     def update(self, id, data):
         try:
