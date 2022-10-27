@@ -24,7 +24,7 @@ class Dedications(Resource):
         controller = DedicationsController()
         return controller.all(query_params['page'], query_params['per_page'])
 
-    @jwt_required()
+    # @jwt_required()
     @dedication_ns.expect(request_schema.create(), validate=True)
     def post(self):
         ''' Creación de Dedicatorias '''
