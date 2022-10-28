@@ -63,7 +63,7 @@ class GiftById(Resource):
         controller = GiftsController()
         return controller.update(id, request.json)
 
-    @jwt_required()
+    # @jwt_required()
     def delete(self, id):
         ''' Deshabilitar un regalo por el ID '''
         controller = GiftsController()
