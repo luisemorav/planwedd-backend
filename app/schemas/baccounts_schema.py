@@ -36,4 +36,4 @@ class BaccountsResponseSchema(SQLAlchemyAutoSchema):
         model = BaccountModel
         ordered = True
 
-    usuario = Nested('UsersResponseSchema', exclude=['cuentas', 'eventos'], many=False)
+    usuario = Nested('UsersResponseSchema', exclude=['cuentas'], many=False)
