@@ -36,17 +36,17 @@ FLASK_RUN_PORT=5000
 
 DATABASE_URI='postgresql://postgres:4268@localhost:5433/planwedd_db'
 
-JWT_SECRET='azul'
+JWT_SECRET=[blocked]
 
 MAIL_SERVER='smtp.gmail.com'
 MAIL_PORT=587
 MAIL_USE_TLS=true
 MAIL_USERNAME='planweddservice@gmail.com'
-MAIL_PASSWORD='uzsfjsvnwvfsqcmt'
+MAIL_PASSWORD=[blocked]
 
-CLOUD_NAME='de3i8hs61'
-API_KEY='697852552381113'
-API_SECRET='SGthDnSL6NpdHh6TloTBl-crRPk'
+CLOUD_NAME=[blocked]
+API_KEY=[blocked]
+API_SECRET=[blocked]
 ```
 
 ### Inicializar el proyecto en local en cualquier momento:
